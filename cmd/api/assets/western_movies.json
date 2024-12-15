@@ -1,0 +1,74 @@
+{
+  "WesternMovies": [
+    {
+      "id": 1,
+      "title": "The Good, the Bad and the Ugly",
+      "director": "Sergio Leone",
+      "releaseYear": 1966,
+      "starring": ["Clint Eastwood", "Lee Van Cleef", "Aldo Giuffrè"],
+      "genre": "Spaghetti Western",
+      "awards": ["Academy Award for Best Original Score nomination"],
+      "rating": {
+        "imdb": 8.8,
+        "rottenTomatoes": 96
+      },
+      "synopsis": "Three gunslingers form an uneasy alliance in search of a buried Confederate treasure."
+    },
+    {
+      "id": 2,
+      "title": "Unforgiven",
+      "director": "Clint Eastwood",
+      "releaseYear": 1992,
+      "starring": ["Clint Eastwood", "Gene Hackman", "Morgan Freeman"],
+      "genre": "Western Drama",
+      "awards": ["4 Academy Awards (Best Picture, Best Director, Best Supporting Actor, Best Editing)"],
+      "rating": {
+        "imdb": 8.2,
+        "rottenTomatoes": 95
+      },
+      "synopsis": "An aging outlaw comes out of retirement for one last job, which turns out to be a killing for hire."
+    },
+    {
+      "id": 3,
+      "title": "The Searchers",
+      "director": "John Ford",
+      "releaseYear": 1956,
+      "starring": ["John Wayne", "Jeffrey Hunter", "Vera Miles"],
+      "genre": "Classic Western",
+      "awards": ["Selected for preservation in the National Film Registry"],
+      "rating": {
+        "imdb": 8.1,
+        "rottenTomatoes": 94
+      },
+      "synopsis": "A Civil War veteran spends years searching for his kidnapped niece in post-war Texas."
+    },
+    {
+      "id": 4,
+      "title": "Django Unchained",
+      "director": "Quentin Tarantino",
+      "releaseYear": 2012,
+      "starring": ["Jamie Foxx", "Christoph Waltz", "Leonardo DiCaprio"],
+      "genre": "Western Action",
+      "awards": ["2 Academy Awards (Best Supporting Actor, Best Original Screenplay)"],
+      "rating": {
+        "imdb": 8.1,
+        "rottenTomatoes": 87
+      },
+      "synopsis": "A freed slave and a bounty hunter team up to rescue the slave's wife from a ruthless plantation owner."
+    },
+    {
+      "id": 5,
+      "title": "Butch Cassidy and the Sundance Kid",
+      "director": "George Roy Hill",
+      "releaseYear": 1969,
+      "starring": ["Paul Newman", "Robert Redford", "Katharine Ross"],
+      "genre": "Western Comedy-Drama",
+      "awards": ["4 Academy Awards (Best Original Screenplay, Best Cinematography, Best Original Score, Best Original Song)"],
+      "rating": {
+        "imdb": 8.1,
+        "rottenTomatoes": 88
+      },
+      "synopsis": "The true story of two outlaws on the run in the early 1900s American West."
+    }
+  ]
+}
