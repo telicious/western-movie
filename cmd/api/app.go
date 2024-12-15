@@ -7,9 +7,9 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"western-movies/cmd/api/repositories"
-	"western-movies/cmd/api/services"
-	"western-movies/cmd/api/utils"
+	"western-movie/cmd/api/repositories"
+	"western-movie/cmd/api/services"
+	"western-movie/cmd/api/utils"
 
 	"github.com/gin-gonic/gin"
 )
