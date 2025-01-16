@@ -1,29 +1,27 @@
-version: '3'
+version: '2.3'
 services:
-
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
+    image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
-
-  kafka-broker-1:
-    image: confluentinc/cp-kafka:latest
-    hostname: kafka-broker-1
+  kafka:
+    image: wurstmeister/kafka
+    hostname: kafka
     ports:
-      - "19092:19092"
+      - "9092:9092"
     depends_on:
       - zookeeper
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-1:9092,PLAINTEXT_INTERNAL://localhost:19092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  schema-registry-host:
+    image: confluentinc/cp-schema-registry:4.0.0
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_AVRO_COMPATIBILITY_LEVEL: none
 
   postgres:
     image: postgres:13
@@ -38,12 +36,12 @@ services:
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     depends_on:
-      - kafka-broker-1
+      - kafka
     ports:
       - "8080:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-broker-1:9092
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
   magic:
     image: digitsy/kafka-magic
@@ -52,4 +50,3 @@ services:
     environment:
       KMAGIC_ALLOW_TOPIC_DELETE: "true"
       KMAGIC_ALLOW_SCHEMA_DELETE: "true"
-

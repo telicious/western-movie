@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"western-movie/cmd/api/models"
+	"western-movies/cmd/api/models"
 )
 
 type MovieRepository struct {

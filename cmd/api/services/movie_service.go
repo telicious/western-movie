@@ -1,8 +1,8 @@
 package services
 
 import (
-	"western-movie/cmd/api/models"
-	"western-movie/cmd/api/repositories"
+	"western-movies/cmd/api/models"
+	"western-movies/cmd/api/repositories"
 )
 
 type MovieService struct {

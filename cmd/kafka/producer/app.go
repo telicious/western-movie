@@ -21,7 +21,7 @@ type WesternMovie struct {
 func main() {
 	// Kafka-Config
 	config := sarama.NewConfig()
-	config.Version = sarama.V2_7_0_0
+	config.Version = sarama.V2_8_0_0
 	config.Producer.Return.Successes = true
 
 	// AVRO-Schema
@@ -42,7 +42,7 @@ func main() {
 	}
 
 	// Producer-Erstellung
-	producer, err := sarama.NewSyncProducer([]string{"kafka-broker-1:9092"}, config)
+	producer, err := sarama.NewSyncProducer([]string{"kafka:9092"}, config)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,7 +51,6 @@ func main() {
 	// UUID-Generator
 	id := uuid.New().String()
 
-	// WesternMovie-Beispiel
 	westernMovie := WesternMovie{
 		ID:          id,
 		Title:       "Der gute, der schlechte und der hässliche",
@@ -65,7 +64,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Nachricht an Kafka senden
 	msg := &sarama.ProducerMessage{
 		Topic: "western-movies",
 		Value: sarama.ByteEncoder(data),

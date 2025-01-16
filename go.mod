@@ -1,12 +1,14 @@
-module western-movie
+module western-movies
 
 go 1.23.1
 
 require (
-	github.com/IBM/sarama v1.43.3
+	github.com/IBM/sarama v1.43.0
 	github.com/gin-gonic/gin v1.10.0
-	github.com/google/uuid v1.6.0
+	github.com/google/uuid v1.3.0
 	github.com/hamba/avro/v2 v2.27.0
+	github.com/linkedin/goavro/v2 v2.13.0
+
 )
 
 require (
@@ -15,7 +17,7 @@ require (
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/eapache/go-resiliency v1.7.0 // indirect
+	github.com/eapache/go-resiliency v1.6.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.7 // indirect
