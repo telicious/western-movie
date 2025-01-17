@@ -1,34 +1,31 @@
-version: '2.3'
+version: '3'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+
   kafka:
     image: wurstmeister/kafka
-    hostname: kafka
+    container_name: kafka
     ports:
-      - "9092:9092"
+      - "49816:9092"
     depends_on:
       - zookeeper
     environment:
-      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  schema-registry-host:
-    image: confluentinc/cp-schema-registry:4.0.0
-    ports:
-      - "8081:8081"
-    environment:
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_AVRO_COMPATIBILITY_LEVEL: none
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092,INTERNAL://kafka:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:49816,INTERNAL://kafka:29092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
 
   postgres:
     image: postgres:13
     restart: always
     environment:
       POSTGRES_USER: lucky
-      POSTGRES_PASSWORD: luck
+      POSTGRES_PASSWORD: luke
       POSTGRES_DB: western-movies
     ports:
       - "5432:5432"
@@ -41,12 +38,15 @@ services:
       - "8080:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
-  magic:
-    image: digitsy/kafka-magic
-    ports:
-      - "8090:80"
-    environment:
-      KMAGIC_ALLOW_TOPIC_DELETE: "true"
-      KMAGIC_ALLOW_SCHEMA_DELETE: "true"
+
+#  kafdrop:
+#    image: obsidiandynamics/kafdrop
+#    restart: "no"
+#    ports:
+#      - "8089:9000"
+#    environment:
+#      KAFKA_BROKERCONNECT: "kafka:29092"
+#    depends_on:
+#      - "kafka"

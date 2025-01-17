@@ -7,7 +7,6 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/google/uuid v1.3.0
 	github.com/hamba/avro/v2 v2.27.0
-	github.com/linkedin/goavro/v2 v2.13.0
 
 )
 

@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
-
 	"github.com/IBM/sarama"
 	"github.com/google/uuid"
 	"github.com/hamba/avro/v2"
+	"log"
 )
 
 // WesternMovie - Struktur für das AVRO-Schema
@@ -20,9 +19,19 @@ type WesternMovie struct {
 
 func main() {
 	// Kafka-Config
-	config := sarama.NewConfig()
-	config.Version = sarama.V2_8_0_0
-	config.Producer.Return.Successes = true
+	cfg := sarama.NewConfig()
+	cfg.ClientID = "western-producer"
+	cfg.Version = sarama.V3_3_2_0
+	cfg.Metadata.AllowAutoTopicCreation = true
+	cfg.Producer.Return.Successes = true
+	cfg.Producer.Return.Errors = true
+	cfg.Producer.Retry.Max = 30
+	cfg.Producer.RequiredAcks = sarama.WaitForAll
+	cfg.Net.MaxOpenRequests = 1
+
+	if err := cfg.Validate(); err != nil {
+		log.Fatal(err)
+	}
 
 	// AVRO-Schema
 	schema, err := avro.Parse(`{
@@ -42,7 +51,7 @@ func main() {
 	}
 
 	// Producer-Erstellung
-	producer, err := sarama.NewSyncProducer([]string{"kafka:9092"}, config)
+	producer, err := sarama.NewSyncProducer([]string{":49816"}, cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -69,10 +78,9 @@ func main() {
 		Value: sarama.ByteEncoder(data),
 		Key:   sarama.StringEncoder(uuid.NewString()),
 	}
-	_, _, err = producer.SendMessage(msg)
+	partition, offset, err := producer.SendMessage(msg)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err.Error())
 	}
-
-	fmt.Printf("Nachricht mit ID '%s' erfolgreich an Kafka gesendet!\n", id)
+	fmt.Println("[Message Sent] ", "topic:", "western-movies", " - key:", 1, " - msg:", data, " - partition:", partition, " - offset:", offset)
 }
