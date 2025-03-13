@@ -7,9 +7,9 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"western-movies/cmd/api/repositories"
-	"western-movies/cmd/api/services"
-	"western-movies/cmd/api/utils"
+	"western-movies/internal/core/services"
+	"western-movies/internal/repositories"
+	"western-movies/internal/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +20,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to get absolute path: %v", err)
 	}
-	jsonPath := path.Join(projectPath, "cmd", "api", "assets/western_movies.json")
+	jsonPath := path.Join(projectPath, "cmd", "http", "assets/western_movies.json")
 
 	// Load Movies from JSON
 	movieRepo, err := repositories.NewMovieRepository(jsonPath)
@@ -35,7 +35,7 @@ func main() {
 	router := gin.Default()
 
 	// API Versioning (optional, adjust as needed)
-	v1 := router.Group("/api/v1")
+	v1 := router.Group("/http/v1")
 	{
 		// GET Endpoints
 		v1.GET("/movies", func(ctx *gin.Context) {

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"western-movies/cmd/api/models"
+	"western-movies/internal/core/dto"
 )
 
 type MovieRepository struct {
-	movies []models.Movie
+	movies []dto.Movie
 }
 
 func NewMovieRepository(jsonPath string) (*MovieRepository, error) {
@@ -20,7 +20,7 @@ func NewMovieRepository(jsonPath string) (*MovieRepository, error) {
 
 func (r *MovieRepository) loadMovies(jsonPath string) error {
 	var data struct {
-		WesternMovies []models.Movie `json:"WesternMovies"`
+		WesternMovies []dto.Movie `json:"WesternMovies"`
 	}
 	file, err := os.Open(jsonPath)
 	if err != nil {
@@ -42,11 +42,11 @@ func (r *MovieRepository) loadMovies(jsonPath string) error {
 	return nil
 }
 
-func (r *MovieRepository) GetAllMovies() []models.Movie {
+func (r *MovieRepository) GetAllMovies() []dto.Movie {
 	return r.movies
 }
 
-func (r *MovieRepository) GetMovieByID(id int) (*models.Movie, error) {
+func (r *MovieRepository) GetMovieByID(id int) (*dto.Movie, error) {
 	for _, movie := range r.movies {
 		if movie.ID == id {
 			return &movie, nil

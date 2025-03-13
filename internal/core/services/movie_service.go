@@ -1,8 +1,8 @@
 package services
 
 import (
-	"western-movies/cmd/api/models"
-	"western-movies/cmd/api/repositories"
+	"western-movies/internal/core/dto"
+	"western-movies/internal/repositories"
 )
 
 type MovieService struct {
@@ -13,10 +13,10 @@ func NewMovieService(repo *repositories.MovieRepository) *MovieService {
 	return &MovieService{repo: repo}
 }
 
-func (s *MovieService) GetAllMovies() []models.Movie {
+func (s *MovieService) GetAllMovies() []dto.Movie {
 	return s.repo.GetAllMovies()
 }
 
-func (s *MovieService) GetMovieByID(id int) (*models.Movie, error) {
+func (s *MovieService) GetMovieByID(id int) (*dto.Movie, error) {
 	return s.repo.GetMovieByID(id)
 }

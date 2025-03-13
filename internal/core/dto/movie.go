@@ -1,4 +1,4 @@
-package models
+package dto
 
 type Rating struct {
 	IMDB           float64 `json:"imdb"`

@@ -34,8 +34,8 @@ build:
 	@mkdir -p bin/
 	@go version
 	go build -v -o bin/movie-api ./cmd/api/
-	go build -v -o bin/movie-producer ./cmd/producer/
-## run-api: starts the application on localhost
+	go build -v -o bin/movie-producer ./cmd/kafka/producer/
+## run-http: starts the application on localhost
 run-api: build
 	./bin/movie-api
 

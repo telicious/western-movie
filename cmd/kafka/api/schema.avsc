@@ -1,0 +1,30 @@
+{
+  "namespace": "com.western",
+  "type": "record",
+  "name": "WesternMovie",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "director",
+      "type": "string"
+    },
+    {
+      "name": "releaseYear",
+      "type": "int"
+    },
+    {
+      "name": "starring",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    }
+  ]
+}

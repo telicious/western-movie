@@ -6,15 +6,16 @@ import (
 	"github.com/google/uuid"
 	"github.com/hamba/avro/v2"
 	"log"
+	"western-movies/cmd/kafka/api"
 )
 
 // WesternMovie - Struktur für das AVRO-Schema
 type WesternMovie struct {
-	ID          string   `avro:"id"`
-	Title       string   `avro:"title"`
-	Director    string   `avro:"director"`
-	ReleaseYear int      `avro:"releaseYear"`
-	Starring    []string `avro:"starring"`
+	ID          string   `http:"id"`
+	Title       string   `http:"title"`
+	Director    string   `http:"director"`
+	ReleaseYear int      `http:"releaseYear"`
+	Starring    []string `http:"starring"`
 }
 
 func main() {
@@ -34,18 +35,7 @@ func main() {
 	}
 
 	// AVRO-Schema
-	schema, err := avro.Parse(`{
-        "namespace": "com.western",
-        "type": "record",
-        "name": "WesternMovie",
-        "fields": [
-            {"name": "id", "type": "string"},
-            {"name": "title", "type": "string"},
-            {"name": "director", "type": "string"},
-            {"name": "releaseYear", "type": "int"},
-            {"name": "starring", "type": {"type": "array", "items": "string"}}
-        ]
-    }`)
+	schema, err := avro.Parse(api.GetSchema())
 	if err != nil {
 		log.Fatal(err)
 	}
